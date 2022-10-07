@@ -1,28 +1,16 @@
 import {useState, useEffect} from 'react'
+import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import Home from "./views/Home"
+import Upload from "./views/Upload"
 
 export default function App() {
 
-  const [apiRes, setApiRes] = useState([])
-
-  useEffect(() => {
-    
-    async function apiCall() {
-      const rawRes = await fetch('/api')
-      setApiRes(await rawRes.json())
-    }
-    apiCall()
-
-  }, [])
-
   return (
-    <div>
-      <h1>Hello</h1>
-      <p>
-        { apiRes.length === 0 ? "Loading . . ." : "Found:"}
-      </p>
-      {apiRes.map(member => <div key={member.id}>
-          {member.name}
-        </div>)}
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/upload" element={<Upload />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
